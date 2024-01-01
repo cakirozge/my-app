@@ -13,6 +13,11 @@ const API_URL = "https://dummyjson.com/products";
     getById(id:number){
         return axios.get<ProductModel>(API_URL + "/" +id);
     }
+    
+//Silme işlemi yaparken önce servis yazma işlemini tercih et.
+    delete(id: number){
+        return axios.delete<ProductModel>(API_URL + "/" +id);
+    }
 }
 
 export default new ProductService();
