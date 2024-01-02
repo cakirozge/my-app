@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { ProductModel } from '../../models/response/ProductModel';
-import ProductService from '../../services/ProductService';
+import ProductService from '../../services/productService';
 
 type Props = {}
 

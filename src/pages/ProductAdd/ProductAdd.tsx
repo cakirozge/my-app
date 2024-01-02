@@ -1,6 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import React from "react";
 import * as Yup from "yup";
+import { passwordRule } from "../../utils/validation/customValidationRules";
 
 type Props = {};
 
@@ -30,13 +31,7 @@ const ProductAdd = (props: Props) => {
     .test(
       "is-strong", 
       "Bu alan en az 1 büyük, 1 küçük harf ve 1 numerik değer içermelidir", 
-      value => {
-        return (
-          /[a-z]/.test(value || '') && //EN AZ BİR KÜÇÜK HARF
-          /[A-Z]/.test(value || '') &&  // EN AZ BİR BÜYÜK HARF
-          /[0-9]/.test(value || '')   // EN AZ BİR SAYI
-          );
-        }, 
+      passwordRule,
         ),
     description: Yup.string().required().min(5).max(300),
     price: Yup.number().min(0),
