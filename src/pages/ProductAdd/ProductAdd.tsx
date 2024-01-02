@@ -3,9 +3,20 @@ import React from 'react'
 
 type Props = {}
 
+//formun alanlarına tip güvenliği sağlarız.
+// interface ProductForm{} -best practice
+
+interface ProductAddForm{
+  title:"",
+  description:"",
+  price:0,
+  stok:0,
+
+}
+
 const ProductAdd = (props: Props) => {
 
-  const initialValues = {
+  const initialValues: ProductAddForm = {
     title:"",
     description:"",
     price:0,
@@ -54,8 +65,6 @@ const ProductAdd = (props: Props) => {
           />
         </div>
 
-        
-        
         <button type="submit" className="btn btn-primary">
           Kayıt
         </button>
