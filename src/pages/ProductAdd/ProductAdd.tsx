@@ -1,7 +1,8 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form , Field, ErrorMessage} from "formik";
 import React from "react";
 import * as Yup from "yup";
 import { passwordRule } from "../../utils/validation/customValidationRules";
+import FormikInput from "../../components/FormikInput/FormikInput";
 
 type Props = {};
 
@@ -13,6 +14,7 @@ interface ProductAddForm {
   description: "";
   price: number;
   stok: number;
+  colorId: number;
 }
 
 const ProductAdd = (props: Props) => {
@@ -21,6 +23,7 @@ const ProductAdd = (props: Props) => {
     description: "",
     price: 0,
     stok: 0,
+    colorId:0,
   };
 
   const validationSchema = Yup.object({
@@ -36,6 +39,7 @@ const ProductAdd = (props: Props) => {
     description: Yup.string().required().min(5).max(300),
     price: Yup.number().min(0),
     stok: Yup.number().min(0).integer(),
+    colorId: Yup.number().min(1), //err verebilmesi için 1 yazdım.
   });
 
   // Form içindeki DİV İSİM veriyoruz örn title.
@@ -58,38 +62,18 @@ const ProductAdd = (props: Props) => {
         }}
       >
         <Form>
-          <div className="mb-3">
-            <label className="form-label">Ürün Adı</label>
-            <Field name="title" type="text" className="form-control" />
-            <ErrorMessage name="title">
-              {message => <p className="text-danger">HATA: {message}</p>}
-            </ErrorMessage>
-          </div>
+          <FormikInput name="title" label="Ürün Adı" />
+          <FormikInput name="description" label="Ürün Açıklaması" />
+          <FormikInput name="price" label="Ürün Fiyatı" type="number" />
+          <FormikInput name="stok" label="Ürün Stok" type="number" />
 
-          <div className="mb-3">
-            <label className="form-label">Ürün Açıklaması</label>
-            <Field name="description" type="text" className="form-control" />
-            <ErrorMessage name="description">
-              {message => <p className="text-danger">HATA: {message}</p>}
-            </ErrorMessage>
-          </div>
-
-          <div className="mb-3">
-            <label className="form-label">Ürün Fiyatı</label>
-            <Field name="price" type="number" className="form-control" />
-            <ErrorMessage name="price">
-              {message => <p className="text-danger">HATA: {message}</p>}
-            </ErrorMessage>
-          </div>
-
-          <div className="mb-3">
-            <label className="form-label">Ürün Stok</label>
-            <Field name="stok" type="number" className="form-control" />
-            <ErrorMessage name="stok">
-              {message => <p className="text-danger">HATA: {message}</p>}
-            </ErrorMessage>
-          </div>
-
+          <Field as="select" className="form-select" name="colorId" >
+            <option value={0} >Bir renk seçin.</option>
+            <option value={1} >Kımızı</option>
+            <option value={2} >Mercan</option>
+            <option value={3} >Mor</option>
+          </Field>
+          <ErrorMessage name="colorId"></ErrorMessage>
           <button type="submit" className="btn btn-primary">
             Kaydet
           </button>
@@ -111,3 +95,4 @@ export default ProductAdd;
 //Yup formikten bağımsız;
 //validationSchema : hazır validasyon kuralları vererek obje üretiriz.
 // /* as paket adı ile tüm paket import olunur.
+//tekrarlanan herşeyi component haline getirmeliyiz. propslar ile alabiliyoruz.

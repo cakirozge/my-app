@@ -7,3 +7,4 @@ export const passwordRule = (value: string) => {
 };
 
 //kendimi tekrarlamamak için dışarı aldım.
+//iki giriş olabilir örn biri kurumsal giriş diğeri kayıt girişi gibi.
