@@ -23,7 +23,21 @@ const ProductAdd = (props: Props) => {
   };
 
   const validationSchema = Yup.object({
-    title: Yup.string().required("Başlık alanı zorunludur.").min(2, "Başlık en az 2 karakterden oluşmalıdır..").max(50, "Başlık en fazla 50 karakterden oluşmalıdır."),
+    title: Yup.string()
+    .required("Başlık alanı zorunludur.")
+    .min(2, "Başlık en az 2 karakterden oluşmalıdır..")
+    .max(50, "Başlık en fazla 50 karakterden oluşmalıdır.")
+    .test(
+      "is-strong", 
+      "Bu alan en az 1 büyük, 1 küçük harf ve 1 numerik değer içermelidir", 
+      value => {
+        return (
+          /[a-z]/.test(value || '') && //EN AZ BİR KÜÇÜK HARF
+          /[A-Z]/.test(value || '') &&  // EN AZ BİR BÜYÜK HARF
+          /[0-9]/.test(value || '')   // EN AZ BİR SAYI
+          );
+        }, 
+        ),
     description: Yup.string().required().min(5).max(300),
     price: Yup.number().min(0),
     stok: Yup.number().min(0).integer(),
