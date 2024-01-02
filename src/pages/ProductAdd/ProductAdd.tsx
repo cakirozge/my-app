@@ -10,8 +10,8 @@ type Props = {};
 interface ProductAddForm {
   title: "";
   description: "";
-  price: 0;
-  stok: 0;
+  price: number;
+  stok: number;
 }
 
 const ProductAdd = (props: Props) => {
@@ -23,7 +23,7 @@ const ProductAdd = (props: Props) => {
   };
 
   const validationSchema = Yup.object({
-    title: Yup.string().required("Başlık alanı zorunludur.").min(2, "Başlık en az 2 karakterden oluşmaktadır..").max(50, "Başlık en fazla 50 karakterden oluşmaktadır."),
+    title: Yup.string().required("Başlık alanı zorunludur.").min(2, "Başlık en az 2 karakterden oluşmalıdır..").max(50, "Başlık en fazla 50 karakterden oluşmalıdır."),
     description: Yup.string().required().min(5).max(300),
     price: Yup.number().min(0),
     stok: Yup.number().min(0).integer(),
@@ -60,16 +60,25 @@ const ProductAdd = (props: Props) => {
           <div className="mb-3">
             <label className="form-label">Ürün Açıklaması</label>
             <Field name="description" type="text" className="form-control" />
+            <ErrorMessage name="description">
+              {message => <p className="text-danger">HATA: {message}</p>}
+            </ErrorMessage>
           </div>
 
           <div className="mb-3">
             <label className="form-label">Ürün Fiyatı</label>
             <Field name="price" type="number" className="form-control" />
+            <ErrorMessage name="price">
+              {message => <p className="text-danger">HATA: {message}</p>}
+            </ErrorMessage>
           </div>
 
           <div className="mb-3">
             <label className="form-label">Ürün Stok</label>
             <Field name="stok" type="number" className="form-control" />
+            <ErrorMessage name="stok">
+              {message => <p className="text-danger">HATA: {message}</p>}
+            </ErrorMessage>
           </div>
 
           <button type="submit" className="btn btn-primary">
